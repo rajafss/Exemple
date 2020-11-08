@@ -1,0 +1,103 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+class Raja extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+   return new StateRaja();
+  }
+
+}
+class StateRaja extends State<Raja>{
+  bool value = true;
+  void onChangeValue( bool value1){
+    setState(() {
+      value = value1;
+    });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
+  void showsnackBar(){
+    scaffoldState.currentState.showSnackBar(new SnackBar(content: new Text('raja saad')));
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Scaffold(
+      backgroundColor: Colors.blueGrey,
+      key: scaffoldState,
+      appBar: new AppBar(
+      title: new Text('welcome'),
+      ),
+      body: new Container(
+        padding: new EdgeInsets.all(12.0),
+       child: new Center(
+         child: new Card(
+
+           child: new Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: <Widget>[
+               new Card(
+                 color: Colors.deepPurple,
+                 child: new Column(
+                   children: <Widget>[
+                     new FlatButton(onPressed: _showMyDialog, child: new Text('click me')),
+                     new RaisedButton(onPressed: showsnackBar, child: new Text('click me2')),
+                   ],
+                 ),
+               ),
+               new Card(
+                 margin: EdgeInsets.all(22.0),
+                 color: Colors.deepPurple,
+                 child: new Column(
+                   children: <Widget>[
+                     new FlatButton(onPressed: _showMyDialog, child: new Text('click me')),
+                     new RaisedButton(onPressed: showsnackBar, child: new Text('click me2')),
+                   ],
+                 ),
+               )
+
+
+             ],
+           ),
+         )
+
+
+       ),
+      ),
+
+    );
+
+  }
+
+}
